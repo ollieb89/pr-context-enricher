@@ -89,7 +89,7 @@ export async function buildPRContext(
     file_changes: fileChanges,
     related_issues: relatedIssues,
     labels: pr.labels.map((l) => l.name),
-    reviewers: pr.requested_reviewers?.map((r) => ('login' in r ? r.login : r.name)) ?? [],
+    reviewers: (pr.requested_reviewers ?? []).map((r) => r.login) ?? [],
     commit_messages: commitMessages,
     change_summary: changeSummary,
   };

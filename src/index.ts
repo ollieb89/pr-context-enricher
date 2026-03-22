@@ -8,15 +8,15 @@ async function run(): Promise<void> {
   try {
     const token = core.getInput('github-token', { required: true });
     const octokit = github.getOctokit(token);
-
     const context = github.context;
     const { owner, repo } = context.repo;
 
     let prNumber: number;
 
     if (context.eventName === 'pull_request' || context.eventName === 'pull_request_target') {
-      prNumber = context.payload.pull_request?.number;
-      if (!prNumber) throw new Error('Could not determine PR number from event payload');
+      const num = context.payload.pull_request?.number;
+      if (!num) throw new Error('Could not determine PR number from event payload');
+      prNumber = num;
     } else {
       const manualPr = core.getInput('pr-number');
       if (!manualPr) throw new Error('pr-number input required for non-PR events');
@@ -35,7 +35,6 @@ async function run(): Promise<void> {
       await postOrUpdateComment(octokit, owner, repo, prNumber, richSummary);
     }
 
-    // Set outputs for downstream steps
     core.setOutput('risk-level', prContext.change_summary.risk_level);
     core.setOutput('complexity-score', prContext.change_summary.complexity_score);
     core.setOutput('has-tests', prContext.change_summary.has_tests);
