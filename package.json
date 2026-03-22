@@ -1,0 +1,37 @@
+{
+  "name": "pr-context-enricher",
+  "version": "1.0.0",
+  "description": "GitHub Action: Auto-generate rich context summaries for AI code reviewers",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc && node scripts/bundle.js",
+    "test": "node --experimental-vm-modules node_modules/.bin/jest --coverage",
+    "lint": "tsc --noEmit"
+  },
+  "keywords": [
+    "github-actions",
+    "ai-code-review",
+    "pr-context",
+    "code-review",
+    "pull-request",
+    "developer-tools",
+    "openai",
+    "llm",
+    "ci-cd",
+    "automation"
+  ],
+  "author": "ollieb89",
+  "license": "MIT",
+  "dependencies": {
+    "@actions/core": "^1.11.1",
+    "@actions/github": "^6.0.1"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.14",
+    "@types/node": "^20.19.37",
+    "@vercel/ncc": "^0.38.4",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.4.6",
+    "typescript": "^5.9.3"
+  }
+}

@@ -1,0 +1,36 @@
+name: 'PR Context Enricher'
+description: 'Auto-generate rich context summaries for AI code reviewers — files changed, risk level, commit history, and a ready-to-paste AI reviewer prompt.'
+author: 'ollieb89'
+
+branding:
+  icon: 'search'
+  color: 'blue'
+
+inputs:
+  github-token:
+    description: 'GitHub token for API access'
+    required: true
+    default: ${{ github.token }}
+  pr-number:
+    description: 'PR number (auto-detected for pull_request events)'
+    required: false
+  post-comment:
+    description: 'Post or update a context summary comment on the PR'
+    required: false
+    default: 'true'
+
+outputs:
+  risk-level:
+    description: 'Risk level: low | medium | high'
+  complexity-score:
+    description: 'Complexity score 0-10'
+  has-tests:
+    description: 'Whether test files were detected'
+  files-changed:
+    description: 'Number of files changed'
+  ai-reviewer-prompt:
+    description: 'Ready-to-paste AI reviewer prompt with full PR context'
+
+runs:
+  using: 'node20'
+  main: 'dist/index.js'
